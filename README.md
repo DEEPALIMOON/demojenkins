@@ -1,2 +1,2 @@
-# demojenkins test one demo-first
-poll scm check
+demojenkins test one demo-first
+
