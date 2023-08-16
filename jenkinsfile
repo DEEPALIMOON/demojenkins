@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+    environment {
+        name = 'deepali'
+    }
+    parameters {
+        string(name: 'persion' , defaultValue: 'deepali deotale' , description: "who are you")
+       booleanParam(name: 'ismale' , defaultValue: true , description: "")
+       choice(name: 'city' , choices: ['pune', 'mumbai'] , description: "")
+       
+    }
+
+    stages {
+        stage('run a command') {
+            steps {
+                sh '''
+                ls
+                pwd
+                date
+                
+                
+                '''
+    
+            
+    
+            }
+        }
+         stage('Environment Variable') {
+            steps {
+               sh 'echo "${BUILD_ID}" '
+               sh 'echo "${name}" '
+            }
+        }
+        stage('parameters') {
+            steps {
+                echo 'Hello build'
+                sh 'echo "${persion}" '
+                
+            }
+        }
+        stage('Continue ?') {
+            input {
+                message "should we continue?"
+                ok "Yes we should"
+            }
+            steps {
+                echo 'deploy on prod'
+            }
+        }
+        
+        stage('deploy on prod') {
+            environment {
+                username = 'myuser'
+            }
+            steps {
+                echo 'Hello build'
+                sh 'echo "${username}" '
+            }
+        }
+    }
+         
+        post{
+            always {
+                echo 'i will always say hellow again'
+            }
+            failure{
+                echo 'Fail'
+            }
+            success{
+                echo 'Succesful'
+            }
+        }
+    }
