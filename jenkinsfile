@@ -38,15 +38,7 @@ pipeline {
                 
             }
         }
-        stage('Continue ?') {
-            input {
-                message "should we continue?"
-                ok "Yes we should"
-            }
-            steps {
-                echo 'deploy on prod'
-            }
-        }
+      
         
         stage('deploy on prod') {
             environment {
@@ -59,15 +51,5 @@ pipeline {
         }
     }
          
-        post{
-            always {
-                echo 'i will always say hellow again'
-            }
-            failure{
-                echo 'Fail'
-            }
-            success{
-                echo 'Succesful'
-            }
-        }
+       
     }
